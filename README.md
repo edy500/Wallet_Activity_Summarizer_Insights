@@ -25,6 +25,10 @@ pnpm run publish-memo output/report.json --network devnet --dry-run
 - `output/report.hash.txt`
 - `output/memo_payload.txt` (sempre gerado em publish-memo)
 
+## Demo outputs (repo)
+- `docs/demo-report.md`
+- `docs/demo-report.json` (RPC key redacted)
+
 ## Notas de seguranca
 - Leitura RPC e 100% read-only (sem chave privada).
 - Para escrever Memo, use AgentWallet (proibido `solana-keygen`, sem Phantom/hardware wallet).
