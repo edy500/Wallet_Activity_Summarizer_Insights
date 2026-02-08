@@ -39,12 +39,13 @@ const server = createServer(async (req, res) => {
 
     try {
       const rpcUrl = rpcOverride || process.env.SOLANA_RPC_URL || DEFAULT_MAINNET_RPC;
+      const safeMaxTx = Math.max(1, Math.min(200, maxTx));
       const { report } = await runReport({
         address,
         days,
         rpcUrl,
         outDir: 'output',
-        maxTx,
+        maxTx: safeMaxTx,
         concurrency: 1,
         delayMs: 800,
         knownProgramsPath: existsSync(knownProgramsPath) ? knownProgramsPath : undefined,

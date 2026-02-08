@@ -106,19 +106,24 @@ const setStatus = (msg) => {
 const runReport = async () => {
   const address = el('addressInput').value.trim();
   const days = Number(el('daysInput').value || '30');
+  const maxTx = Number(el('maxTxInput').value || '10');
   const rpc = el('rpcInput').value.trim();
   if (!address) {
     alert('Enter a wallet address');
     return;
   }
   setStatus('Generating report... (may take a few seconds)');
-  const params = new URLSearchParams({ address, days: String(days) });
+  const params = new URLSearchParams({
+    address,
+    days: String(days),
+    maxTx: String(maxTx),
+  });
   if (rpc) params.set('rpc', rpc);
   const res = await fetch(`/api/report?${params.toString()}`);
   if (!res.ok) {
     const text = await res.text();
     if (text.includes('429')) {
-      throw new Error('RPC rate limited (429). Try again or provide a dedicated RPC URL.');
+      throw new Error('RPC rate limited (429). Try lower Max TX, fewer days, or a dedicated RPC URL.');
     }
     throw new Error(text || 'Failed to generate report');
   }
