@@ -1,0 +1,212 @@
+{
+  "metadata": {
+    "address": "2T1NXDFKoinM8ruJHAJN4go3KvmtKKTGDiWnKmTmLxsR",
+    "days": 30,
+    "startTime": "2026-01-18T13:44:21.000Z",
+    "endTime": "2026-02-08T20:20:59.000Z",
+    "generatedAt": "2026-02-08T20:58:36.089Z",
+    "rpcUrl": "https://mainnet.helius-rpc.com/?api-key=REDACTED",
+    "txScanned": 7
+  },
+  "summary": {
+    "totalTx": 7,
+    "totalFeesSol": 0.000260002,
+    "actionCounts": {
+      "swap": 3,
+      "transfer": 4,
+      "nft": 0,
+      "mint": 0,
+      "stake": 0,
+      "unknown": 0
+    }
+  },
+  "protocolsUsed": [],
+  "topTokens": [
+    {
+      "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "transfers": 2,
+      "amountAbs": "1100000"
+    },
+    {
+      "mint": "GoLDppdjB1vDTPSGxyMJFqdnj134yH6Prg9eqsGDiw6A",
+      "transfers": 1,
+      "amountAbs": "1"
+    }
+  ],
+  "topCounterparties": [
+    {
+      "address": "8emgcYVJz4Yn2oc852V91sxrX6S27kTebZwas6Rmv1i9",
+      "transfers": 1
+    },
+    {
+      "address": "8F3LxALtQCEFrjBi5xkWsw8WvdJ9SER7NtY4sGYszy1y",
+      "transfers": 1
+    },
+    {
+      "address": "3ZcWgT2Efi2qPZC3cTAZwFocAUTMNqezVSuenCpWffVn",
+      "transfers": 1
+    }
+  ],
+  "hourlyActivity": [
+    {
+      "hour": 0,
+      "tx": 1
+    },
+    {
+      "hour": 1,
+      "tx": 0
+    },
+    {
+      "hour": 2,
+      "tx": 0
+    },
+    {
+      "hour": 3,
+      "tx": 0
+    },
+    {
+      "hour": 4,
+      "tx": 0
+    },
+    {
+      "hour": 5,
+      "tx": 0
+    },
+    {
+      "hour": 6,
+      "tx": 0
+    },
+    {
+      "hour": 7,
+      "tx": 0
+    },
+    {
+      "hour": 8,
+      "tx": 0
+    },
+    {
+      "hour": 9,
+      "tx": 0
+    },
+    {
+      "hour": 10,
+      "tx": 0
+    },
+    {
+      "hour": 11,
+      "tx": 0
+    },
+    {
+      "hour": 12,
+      "tx": 0
+    },
+    {
+      "hour": 13,
+      "tx": 1
+    },
+    {
+      "hour": 14,
+      "tx": 0
+    },
+    {
+      "hour": 15,
+      "tx": 0
+    },
+    {
+      "hour": 16,
+      "tx": 0
+    },
+    {
+      "hour": 17,
+      "tx": 0
+    },
+    {
+      "hour": 18,
+      "tx": 0
+    },
+    {
+      "hour": 19,
+      "tx": 3
+    },
+    {
+      "hour": 20,
+      "tx": 2
+    },
+    {
+      "hour": 21,
+      "tx": 0
+    },
+    {
+      "hour": 22,
+      "tx": 0
+    },
+    {
+      "hour": 23,
+      "tx": 0
+    }
+  ],
+  "flags": [],
+  "txSamples": [
+    {
+      "signature": "49mVxXLNR7hUCgFvfZ2Uz66a77ntu6BQL46oB1u7VmuiH6JygMgmYYH5DbKkwBLjnEEWUYC1NuAMTGwXzaqpA2Hj",
+      "time": "2026-02-08T20:20:59.000Z",
+      "action": "transfer",
+      "programs": [
+        "system"
+      ]
+    },
+    {
+      "signature": "5p74Wp8tqLigkWqGYF9Pg6VRQ4r8RYqtZAd9gAaonKZYAsbyEoDTR7vp5NfG6yAvXbaBLiK8B7uFBp3U6hSKwEso",
+      "time": "2026-02-08T20:20:33.000Z",
+      "action": "swap",
+      "programs": [
+        "spl-associated-token-account",
+        "spl-token",
+        "system"
+      ]
+    },
+    {
+      "signature": "tYEseFBPzJT78DYDjnCMKS6vhE1Pm7NF56SCn9xdayBPduSv65C9qiUyM9WoMRS6Q4SNzE15AMUZyZ3n2YZRD3B",
+      "time": "2026-02-08T19:27:29.000Z",
+      "action": "transfer",
+      "programs": [
+        "system"
+      ]
+    },
+    {
+      "signature": "3ewetLKue6q4HZHkJ8dbeGMk4rJFtZPDCcZr8YEUQQGQ3cTRDqDHi7wTCnkUn6vANFXFY3PJxYDviZdupsJWPnpo",
+      "time": "2026-02-08T19:27:29.000Z",
+      "action": "transfer",
+      "programs": [
+        "system"
+      ]
+    },
+    {
+      "signature": "3hqNFVRCcenPiFfA3QnpnwE8uQw3Ph4UQxPpFmpPev3HyxrBGXRRXPu8KK33jxisBSmxzxgqBtSGrYVUsmCCoTtM",
+      "time": "2026-02-08T19:27:27.000Z",
+      "action": "swap",
+      "programs": [
+        "spl-associated-token-account",
+        "spl-token",
+        "system"
+      ]
+    },
+    {
+      "signature": "wXWhtjfyAsTbBYbxqEFageHxScZ9SgY3yc7qGLeCnEf8NEeuRB7iCopm4qe4f1Jtrok6afXrho5FnA23gv7XEUi",
+      "time": "2026-02-02T00:05:09.000Z",
+      "action": "transfer",
+      "programs": [
+        "spl-token"
+      ]
+    },
+    {
+      "signature": "fwdsQRuLPgxsbkZvLgwKhxEHt6Ms4v4RHjtMj3Wbu5mHFSb5FgWWMxnww34yy9ndTSTgb6rsNHB5WpQWR6ErbUH",
+      "time": "2026-01-18T13:44:21.000Z",
+      "action": "swap",
+      "programs": [
+        "spl-token",
+        "spl-memo"
+      ]
+    }
+  ]
+}
