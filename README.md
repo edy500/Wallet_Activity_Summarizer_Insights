@@ -9,7 +9,7 @@ pnpm run report <ADDRESS> --days 30
 # Saidas: output/report.json, output/report.md, output/report.hash.txt
 
 # Memo (devnet) - precisa AgentWallet
-pnpm run publish-memo output/report.json --network devnet
+pnpm run publish-memo output/report.json --network devnet --dry-run
 ```
 
 ## Comandos
@@ -36,4 +36,4 @@ Formato:
 ```
 
 ## Status do Memo
-O comando `publish-memo` esta pronto para integrar com AgentWallet. Preciso do `skill.md` do AgentWallet para implementar a assinatura e envio da transacao.
+O `skill.md` atual do AgentWallet nao expõe endpoint para assinar/enviar transacoes Solana genericas (como Memo). Por isso, `publish-memo` fica em **dry-run**: gera o hash e o payload do Memo, mas nao envia on-chain. Assim que houver endpoint para transacao generica, a integracao sera finalizada.
