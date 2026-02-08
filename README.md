@@ -35,5 +35,10 @@ Formato:
 ]
 ```
 
+Ja inclui uma lista inicial em `docs/known-programs.json`:
+```bash
+pnpm run report <ADDRESS> --days 30 --known-programs docs/known-programs.json
+```
+
 ## Status do Memo
 O `skill.md` atual do AgentWallet nao expõe endpoint para assinar/enviar transacoes Solana genericas (como Memo). Por isso, `publish-memo` fica em **dry-run**: gera o hash e o payload do Memo, mas nao envia on-chain. Assim que houver endpoint para transacao generica, a integracao sera finalizada.
