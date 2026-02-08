@@ -5,11 +5,14 @@ CLI que gera relatorio humano + JSON de atividade de uma wallet Solana via leitu
 ## Demo in 60 seconds
 ```bash
 pnpm install
-pnpm run report <ADDRESS> --days 30
+
+# 1) Gerar relatorio (mainnet, read-only)
+pnpm run report <ADDRESS> --days 30 --maxTx 50 --concurrency 1 --delayMs 800 --known-programs docs/known-programs.json
 # Saidas: output/report.json, output/report.md, output/report.hash.txt
 
-# Memo (devnet) - precisa AgentWallet
+# 2) Gerar payload de Memo (dry-run)
 pnpm run publish-memo output/report.json --network devnet --dry-run
+# Saida: output/memo_payload.txt
 ```
 
 ## Comandos
