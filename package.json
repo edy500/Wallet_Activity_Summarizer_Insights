@@ -1,0 +1,21 @@
+{
+  "name": "wallet-activity-summarizer-insights",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "report": "tsx src/cli.ts report",
+    "publish-memo": "tsx src/cli.ts publish-memo",
+    "agentwallet-status": "tsx src/cli.ts agentwallet-status",
+    "lint": "node -e \"console.log('no lint configured')\"",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.0",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.4"
+  }
+}
