@@ -7,6 +7,8 @@
     "report": "tsx src/cli.ts report",
     "publish-memo": "tsx src/cli.ts publish-memo",
     "agentwallet-status": "tsx src/cli.ts agentwallet-status",
+    "ui": "npx serve publica -l 4173",
+    "dev": "tsx src/server.ts",
     "lint": "node -e \"console.log('no lint configured')\"",
     "build": "tsc -p tsconfig.json"
   },

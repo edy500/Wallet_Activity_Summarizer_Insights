@@ -29,6 +29,13 @@ pnpm run publish-memo output/report.json --network devnet --dry-run
 - `docs/demo-report.md`
 - `docs/demo-report.json` (RPC key redacted)
 
+## UI local (minima)
+```bash
+pnpm run dev
+```
+Abre `http://localhost:4173` e mostra os insights do arquivo `publica/data/demo-report.json`.
+Voce pode colar um address e gerar o relatorio direto na tela (API local).
+
 ## Notas de seguranca
 - Leitura RPC e 100% read-only (sem chave privada).
 - Para escrever Memo, use AgentWallet (proibido `solana-keygen`, sem Phantom/hardware wallet).
