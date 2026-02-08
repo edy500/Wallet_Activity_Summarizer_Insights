@@ -155,7 +155,18 @@ export function analyzeTransactions(
       if (known) protocolAgg.set(known.name, (protocolAgg.get(known.name) ?? 0) + 1);
     }
 
-    const action = classifyAction(programIds, transfers, solTransfers);
+    const tokenDeltas = computeOwnerTokenDeltas(tx, address);
+    const solDelta = computeOwnerSolDelta(tx, address);
+    const hasSwapProgram = hasSwapProgramCategory(programIds, knownProgramMap);
+
+    const action = classifyAction({
+      programIds,
+      transfers,
+      solTransfers,
+      tokenDeltas,
+      solDelta,
+      hasSwapProgram,
+    });
     actionCounts[action] += 1;
 
     for (const t of transfers) {
@@ -250,18 +261,31 @@ function collectParsedInstructions(tx: ParsedTransactionWithMeta): ParsedInstruc
   return out;
 }
 
-function classifyAction(
-  programIds: Set<string>,
-  transfers: Transfer[],
-  solTransfers: { source: string; destination: string; lamports: bigint }[]
-): ActionType {
+function classifyAction(input: {
+  programIds: Set<string>;
+  transfers: Transfer[];
+  solTransfers: { source: string; destination: string; lamports: bigint }[];
+  tokenDeltas: Map<string, bigint>;
+  solDelta: bigint;
+  hasSwapProgram: boolean;
+}): ActionType {
+  const { programIds, transfers, solTransfers, tokenDeltas, solDelta, hasSwapProgram } = input;
   const hasStake = programIds.has(STAKE_PROGRAM);
   if (hasStake) return 'stake';
 
   const tokenMints = transfers.map((t) => t.mint).filter(Boolean);
   const uniqueMints = uniq(tokenMints);
   const hasNft = transfers.some((t) => t.isNftApprox);
+  const tokenDeltaValues = Array.from(tokenDeltas.values());
+  const hasTokenIn = tokenDeltaValues.some((v) => v > 0n);
+  const hasTokenOut = tokenDeltaValues.some((v) => v < 0n);
+  const hasTokenDelta = tokenDeltaValues.length > 0;
+  const hasSolIn = solDelta > 0n;
+  const hasSolOut = solDelta < 0n;
 
+  if (hasSwapProgram && (hasTokenDelta || hasSolIn || hasSolOut)) return 'swap';
+  if (hasTokenIn && hasTokenOut && tokenDeltas.size >= 2) return 'swap';
+  if ((hasTokenIn || hasTokenOut) && (hasSolIn || hasSolOut)) return 'swap';
   if (uniqueMints.length >= 2) return 'swap';
   if (solTransfers.length > 0 && tokenMints.length > 0) return 'swap';
   if (hasNft) return 'nft';
@@ -269,6 +293,51 @@ function classifyAction(
   if (transfers.some((t) => !t.source && t.destination)) return 'mint';
 
   return 'unknown';
+}
+
+function computeOwnerTokenDeltas(tx: ParsedTransactionWithMeta, owner: string): Map<string, bigint> {
+  const deltas = new Map<string, bigint>();
+  const pre = tx.meta?.preTokenBalances ?? [];
+  const post = tx.meta?.postTokenBalances ?? [];
+
+  for (const bal of pre) {
+    if (bal.owner !== owner) continue;
+    const mint = bal.mint;
+    const amount = bal.uiTokenAmount?.amount ? BigInt(bal.uiTokenAmount.amount) : 0n;
+    deltas.set(mint, (deltas.get(mint) ?? 0n) - amount);
+  }
+
+  for (const bal of post) {
+    if (bal.owner !== owner) continue;
+    const mint = bal.mint;
+    const amount = bal.uiTokenAmount?.amount ? BigInt(bal.uiTokenAmount.amount) : 0n;
+    deltas.set(mint, (deltas.get(mint) ?? 0n) + amount);
+  }
+
+  for (const [mint, delta] of Array.from(deltas.entries())) {
+    if (delta === 0n) deltas.delete(mint);
+  }
+
+  return deltas;
+}
+
+function computeOwnerSolDelta(tx: ParsedTransactionWithMeta, owner: string): bigint {
+  const keys = tx.transaction.message.accountKeys.map((k) => k.pubkey.toString());
+  const idx = keys.indexOf(owner);
+  if (idx < 0) return 0n;
+  const pre = tx.meta?.preBalances?.[idx] ?? 0;
+  const post = tx.meta?.postBalances?.[idx] ?? 0;
+  return BigInt(post - pre);
+}
+
+function hasSwapProgramCategory(programIds: Set<string>, known: Map<string, KnownProgram>): boolean {
+  for (const id of programIds) {
+    const p = known.get(id);
+    if (!p) continue;
+    const cat = p.category?.toLowerCase?.() ?? '';
+    if (cat === 'swap' || cat === 'amm' || cat === 'clmm' || cat === 'orderbook') return true;
+  }
+  return false;
 }
 
 function counterpartyFromTransfer(address: string, t: Transfer): string | null {
